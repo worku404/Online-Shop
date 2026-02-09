@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 class Order(models.Model):
     first_name = models.CharField(max_length=50)
@@ -16,11 +17,26 @@ class Order(models.Model):
         indexes = [
             models.Index(fields=['-created'])
         ]
+        
+    stripe_id  = models.CharField(max_length=250, blank=True)
+    
     def __str__(self):
         return f'order {self.id}'
     
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
+    
+    def get_stripe_url(self):
+        if not self.stripe_id:
+            #  no payment associated
+            return ''
+        if 'test' in settings.STRIPE_SECRET_KEY:
+            # stripe path for test payments
+            path = '/test/'
+        else:
+            # stripe path for real payments
+            path = '/'
+        return f'https://dashboard.stripe.com{path}payments/{self.stripe_id}'
 
 
 class OrderItem(models.Model):
