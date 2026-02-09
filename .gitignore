@@ -209,3 +209,5 @@ __marimo__/
 staticfiles/
 Django 5 By Example.pdf
 .vscode/
+media/
+myshop/media/
