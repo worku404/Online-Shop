@@ -6,17 +6,19 @@ Defines the management interface for categories and products.
 from django.contrib import admin
 from .models import Category, Product
 
+from parler.admin import TranslatableAdmin
 # ==============================================================================
 # CATEGORY ADMIN
 # ==============================================================================
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslatableAdmin):
     """
     Administration interface for the Category model.
     """
     list_display = ['name', 'slug']
-    prepopulated_fields = {'slug': ('name',)}
+    def get_prepopulated_fields(self, request, obj=None):
+        return  {'slug': ('name',)}
 
 
 # ==============================================================================
@@ -24,7 +26,7 @@ class CategoryAdmin(admin.ModelAdmin):
 # ==============================================================================
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(TranslatableAdmin):
     """
     Administration interface for the Product model.
     - list_display: Fields shown in the admin list view.
@@ -42,4 +44,6 @@ class ProductAdmin(admin.ModelAdmin):
     ]
     list_filter = ['available', 'created', 'updated']
     list_editable = ['price', 'available']
-    prepopulated_fields = {'slug': ('name',)}
+
+    def get_prepopulated_fields(self, request, obj=None):
+        return  {'slug': ('name',)}

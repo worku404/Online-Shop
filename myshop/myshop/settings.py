@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
     'coupons.apps.CouponsConfig',
+    'rosetta',
+    'parler',
 ]
 
 MIDDLEWARE = [
@@ -110,21 +112,43 @@ AUTH_PASSWORD_VALIDATORS = [
 # ==============================================================================
 # INTERNATIONALIZATION
 # ==============================================================================
+from django.conf.locale import LANG_INFO
 from django.utils.translation import gettext_lazy as _
+
+LANG_INFO.update({
+    'am': {
+        'bidi': False,
+        'code': 'am',
+        'name': 'Amharic',
+        'name_local': 'አማርኛ',
+    },
+})
+
 LANGUAGE_CODE = 'en'
 LANGUAGES = [
     ('en', _('English')),
     ('es', _('Spanish')),       # Common second language
+    ('am', _('Amharic')),
 ]
 LOCALE_PATHS = [
     BASE_DIR / 'locale',
 ]
 TIME_ZONE = 'UTC'
-TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'en'},
+        {'code': 'es'},
+        {'code': 'am'},
+        
+    ),
+    'default': {
+        'fallbacks': ['en'],
+        'hide_untranslated': False,
+    }
+}
 # ==============================================================================
 # STATIC & MEDIA FILES
 # ==============================================================================

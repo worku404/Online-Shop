@@ -95,11 +95,26 @@ class Cart:
         # Fetch actual Product objects from DB
         products = Product.objects.filter(id__in=product_ids)
         
-        cart = self.cart.copy()
+        # Copy nested item dicts so runtime formatting (Decimal/product object)
+        # doesn't leak back into session JSON payload.
+        cart = {k: v.copy() for k, v in self.cart.items()}
+        existing_ids = set()
         for product in products:
-            cart[str(product.id)]['product'] = product
-            
+            product_id = str(product.id)
+            cart[product_id]['product'] = product
+            existing_ids.add(product_id)
+
+        # Remove stale cart rows that reference deleted products.
+        stale_ids = [product_id for product_id in list(cart.keys()) if product_id not in existing_ids]
+        if stale_ids:
+            for product_id in stale_ids:
+                self.cart.pop(product_id, None)
+                cart.pop(product_id, None)
+            self.save()
+             
         for item in cart.values():
+            if 'product' not in item:
+                continue
             item['price'] = Decimal(item['price'])
             item['total_price'] = item['price'] * item['quantity']
             yield item

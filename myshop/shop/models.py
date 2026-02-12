@@ -6,22 +6,25 @@ Defines Category and Product structures for the product catalog.
 from django.db import models
 from django.urls import reverse
 
+from parler.models import TranslatableModel, TranslatedFields
 # ==============================================================================
 # CATEGORY MODEL
 # ==============================================================================
 
-class Category(models.Model):
+class Category(TranslatableModel):
+    
     """
     Groups products into logical classifications.
     """
-    name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200, unique=True)
-    
+    translations = TranslatedFields(
+        name = models.CharField(max_length=200),
+        slug = models.SlugField(max_length=200, unique=True),
+    )
     class Meta:
-        ordering = ['name']
-        indexes = [
-            models.Index(fields=['name']),
-        ]
+        # ordering = ['name']
+        # indexes = [
+        #     models.Index(fields=['name']),
+        # ]
         verbose_name = 'category'
         verbose_name_plural = 'categories'
 
@@ -42,11 +45,12 @@ class Category(models.Model):
 # PRODUCT MODEL
 # ==============================================================================
 
-class Product(models.Model):
+class Product(TranslatableModel):
     """
     Stores individual product details and availability status.
     """
     # Relationships
+    
     category = models.ForeignKey(
         Category,
         related_name='products',
@@ -54,13 +58,15 @@ class Product(models.Model):
     )
     
     # Basic Information
-    name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200)
+    translations = TranslatedFields(
+        name = models.CharField(max_length=200),
+        slug = models.SlugField(max_length=200),
+        description = models.TextField(blank=True),
+    )
     image = models.ImageField(
         upload_to='products/%y/%m/%d',
         blank=True
     )
-    description = models.TextField(blank=True)
     
     # Financials & Status
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -71,10 +77,10 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
     
     class Meta:
-        ordering = ['name']
+        # ordering = ['name']
         indexes = [
-            models.Index(fields=['id', 'slug']),
-            models.Index(fields=['name']),
+            # models.Index(fields=['id', 'slug']),
+            # models.Index(fields=['name']),
             models.Index(fields=['-created']),
         ]
 

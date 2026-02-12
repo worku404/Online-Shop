@@ -8,35 +8,125 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-12 14:03+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2026-02-12 15:53+0300\n"
+"PO-Revision-Date: 2026-02-12 16:07+0000\n"
+"Last-Translator:   <gold0963@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.10.3\n"
+
 #: .\orders\models.py:21
 msgid "first_name"
-msgstr "nombre"
+msgstr "First Name"
 
 #: .\orders\models.py:22
 msgid "last_name"
-msgstr "apellidos"
+msgstr "Last Name"
 
 #: .\orders\models.py:23
 msgid "e-mail"
-msgstr "e-mail"
+msgstr "E-mail"
 
 #: .\orders\models.py:24
 msgid "address"
-msgstr "direccion"
+msgstr "Address"
 
 #: .\orders\models.py:25
 msgid "postal_code"
-msgstr "codigo_postal"
+msgstr "Postal Code"
 
 #: .\orders\models.py:26
 msgid "city"
-msgstr "ciudad"
+msgstr "City"
+
+#: .\orders\templates\orders\order\create.html:3
+#: .\orders\templates\orders\order\create.html:6
+msgid "Checkout"
+msgstr "Checkout"
+
+#: .\orders\templates\orders\order\create.html:8
+msgid "Your order"
+msgstr "Your order"
+
+#: .\orders\templates\orders\order\create.html:18
+#, python-format
+msgid ""
+"\n"
+"                        \"%(code)s\" (%(discount)s%% off )\n"
+"                    "
+msgstr ""
+"\n"
+"                        \"%(code)s\" (%(discount)s%% off )\n"
+"                    "
+
+#: .\orders\templates\orders\order\create.html:26
+#: .\orders\templates\orders\order\pdf.html:58
+msgid "Total"
+msgstr "Total"
+
+#: .\orders\templates\orders\order\create.html:30
+msgid "Place order"
+msgstr "Place order"
+
+#: .\orders\templates\orders\order\pdf.html:4
+msgid "My shop"
+msgstr "My shop"
+
+#: .\orders\templates\orders\order\pdf.html:6
+msgid "Invoice no."
+msgstr "Invoice no."
+
+#: .\orders\templates\orders\order\pdf.html:11
+msgid "Bill to"
+msgstr "Bill to"
+
+#: .\orders\templates\orders\order\pdf.html:18
+msgid "Items bought"
+msgstr "Items bought"
+
+#: .\orders\templates\orders\order\pdf.html:22
+msgid "Product"
+msgstr "Product"
+
+#: .\orders\templates\orders\order\pdf.html:23
+msgid "Price"
+msgstr "Price"
+
+#: .\orders\templates\orders\order\pdf.html:24
+msgid "Quantity"
+msgstr "Quantity"
+
+#: .\orders\templates\orders\order\pdf.html:25
+msgid "Cost"
+msgstr "Cost"
+
+#: .\orders\templates\orders\order\pdf.html:40
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#: .\orders\templates\orders\order\pdf.html:47
+#, python-format
+msgid ""
+"\n"
+"              \"%(code)s\" (%(discount)s%% off)\n"
+"            "
+msgstr ""
+"\n"
+"              \"%(code)s\" (%(discount)s%% off)\n"
+"            "
+
+#: .\orders\templates\orders\order\pdf.html:65
+msgid "Paid"
+msgstr "Paid"
+
+#: .\orders\templates\orders\order\pdf.html:65
+msgid "Pending payment"
+msgstr "Pending payment"
+
+#: .\orders\urls.py:15
+msgid "create/"
+msgstr "create/"

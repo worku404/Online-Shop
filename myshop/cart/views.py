@@ -66,7 +66,7 @@ def cart_detail(request):
 
     coupon_apply_form = CouponApplyForm()      
     r = Recommender()
-    cart_products = [item['product'] for item in cart]
+    cart_products = [item['product'] for item in cart if 'product' in item]
     if (cart_products):
         recommended_products = r.suggest_products_for(cart_products, max_results=4) 
     else:

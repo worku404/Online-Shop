@@ -24,7 +24,11 @@ def product_list(request, category_slug=None):
     products = Product.objects.filter(available=True)
     
     if category_slug:
-        category = get_object_or_404(Category, slug=category_slug)
+        language = request.LANGUAGE_CODE
+        # Use DOUBLE underscores (__) here:
+        category = get_object_or_404(Category,
+                                     translations__language_code=language,
+                                     translations__slug=category_slug)
         products = products.filter(category=category)
         
     return render(
@@ -43,12 +47,12 @@ def product_detail(request, id, slug):
     Displays the detailed page for a specific product.
     Includes the form to add the product to the shopping cart.
     """
-    product = get_object_or_404(
-        Product,
-        id=id,
-        slug=slug,
-        available=True
-    )
+    language = request.LANGUAGE_CODE
+    product = get_object_or_404(Product,
+                                id=id,
+                                translations__language_code=language,
+                                translations__slug=slug,
+                                available=True)
     
     # Form to select quantity and add to cart
     cart_product_form = CartAddProductForm()
