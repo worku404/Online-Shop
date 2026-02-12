@@ -1,15 +1,37 @@
-from django.contrib import admin
+"""
+Admin configuration for the shop application.
+Defines the management interface for categories and products.
+"""
 
-# Register your models here.
+from django.contrib import admin
 from .models import Category, Product
+
+# ==============================================================================
+# CATEGORY ADMIN
+# ==============================================================================
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    """
+    Administration interface for the Category model.
+    """
     list_display = ['name', 'slug']
     prepopulated_fields = {'slug': ('name',)}
-    
+
+
+# ==============================================================================
+# PRODUCT ADMIN
+# ==============================================================================
+
 @admin.register(Product)
-class ProductAdim(admin.ModelAdmin):
+class ProductAdmin(admin.ModelAdmin):
+    """
+    Administration interface for the Product model.
+    - list_display: Fields shown in the admin list view.
+    - list_filter: Sidebar filters for availability and dates.
+    - list_editable: Fields that can be edited directly in the list view.
+    - prepopulated_fields: Slugs generated automatically from names.
+    """
     list_display = [
         'name',
         'slug',
@@ -21,16 +43,3 @@ class ProductAdim(admin.ModelAdmin):
     list_filter = ['available', 'created', 'updated']
     list_editable = ['price', 'available']
     prepopulated_fields = {'slug': ('name',)}
-    
-
-"""
-This is a Django admin class for the Product model, registered with the admin site.
-It customizes the admin interface for managing products in the online shop.
-
-- list_display: Shows these fields in the admin list view (name, slug, price, availability, creation and update dates).
-- list_filter: Allows filtering products by availability, creation date, and update date.
-- list_editable: Lets you edit price and availability directly from the list view.
-- prepopulated_fields: Automatically fills the slug field based on the name field.
-
-This makes it easy to view, filter, and edit product details in the Django admin panel.
-"""
