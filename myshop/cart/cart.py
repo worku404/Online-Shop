@@ -44,8 +44,32 @@ class Cart:
             ) * self.get_total_price()
         return Decimal(0)
     
-    def getTotalPriceAfterDiscount(self):
+    def get_total_price_after_discount(self):
         return self.get_total_price() - self.get_discount()
+
+    # Backward-compatible alias for existing template calls.
+    def getTotalPriceAfterDiscount(self):
+        return self.get_total_price_after_discount()
+
+    def get_total_weight(self):
+        total_weight = 0
+        for item in self:
+            if 'product' in item:
+                total_weight += item['product'].weight * item['quantity']
+        return total_weight
+
+    def get_shipping_cost(self):
+        weight = self.get_total_weight()
+        if weight == 0:
+            return Decimal('0.00')
+        if weight <= 1000:
+            return Decimal('5.00')
+        if weight <= 5000:
+            return Decimal('10.00')
+        return Decimal('20.00')
+
+    def get_total_price_with_shipping(self):
+        return self.get_total_price_after_discount() + self.get_shipping_cost()
 
     # --------------------------------------------------------------------------
     # DATA MANAGEMENT

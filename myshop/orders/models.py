@@ -45,6 +45,30 @@ class Order(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(100)]
     )
 
+    shipping_cost = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
+    total_weight = models.PositiveIntegerField(default=0)
+    
+    def get_total_weight(self):
+        return sum(
+            item.product.weight * item.quantity
+            for item in self.items.all()
+        )
+        
+    def calculate_shipping(self):
+        weight = self.get_total_weight()
+        if weight == 0:
+            return Decimal('0.00')
+        
+        if weight <=1000:
+            return Decimal('5.00')
+        elif weight <= 5000:
+            return Decimal('10.00')
+        return Decimal('20.00')
+    
     class Meta:
         ordering = ['-created']
         indexes = [
@@ -59,7 +83,9 @@ class Order(models.Model):
         Calculates the total cost of the order (sum of all items).
         """
         total_cost = self.get_total_cost_before_discount()
-        return total_cost - self.get_discount()
+        total_cost -=self.get_discount()
+        total_cost +=self.shipping_cost
+        return total_cost
     
     def get_total_cost_before_discount(self):
         return sum(item.get_cost() for item in self.items.all())

@@ -55,8 +55,9 @@ def cart_detail(request):
     """
     cart = Cart(request)
     
-    # Initialize quantity update forms for each item in the cart
-    for item in cart:
+    # Materialize cart items once, then attach per-row update forms.
+    cart_items = list(cart)
+    for item in cart_items:
         item['update_quantity_form'] = CartAddProductForm(
             initial={
                 'quantity': item['quantity'],
@@ -75,6 +76,7 @@ def cart_detail(request):
         request,
         'cart/detail.html',
         {'cart': cart,
+         'cart_items': cart_items,
          'coupon_apply_form': coupon_apply_form,
          'recommended_products':recommended_products
          }

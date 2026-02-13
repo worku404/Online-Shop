@@ -14,7 +14,7 @@
         <form action="{% url 'cart:cart_add' product.id %}" method="post">
             {{ cart_product_form }}
             
-            <input type="submit" value="{% translate "Add to cart" %}">
+            <input type="submit" class="cta-order" value="{% translate "Add to cart" %}">
             {% csrf_token %}
         </form>
         {{ product.description|linebreaks }}

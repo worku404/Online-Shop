@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-12 15:53+0300\n"
+"POT-Creation-Date: 2026-02-13 10:00+0300\n"
 "PO-Revision-Date: 2026-02-12 16:04+0000\n"
 "Last-Translator:   <gold0963@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,12 +62,20 @@ msgstr ""
 "                        \"%(code)s\" (%(discount)s%% ቅናሽ )\n"
 "                    "
 
-#: .\orders\templates\orders\order\create.html:26
+#: .\orders\templates\orders\order\create.html:27
+msgid "Shipping"
+msgstr "የማጓጓዣ ክፍያ"
+
+#: .\orders\templates\orders\order\create.html:29
+msgid "Free shipping"
+msgstr "ነፃ ማጓጓዣ"
+
+#: .\orders\templates\orders\order\create.html:34
 #: .\orders\templates\orders\order\pdf.html:58
 msgid "Total"
 msgstr "ጠቅላላ"
 
-#: .\orders\templates\orders\order\create.html:30
+#: .\orders\templates\orders\order\create.html:38
 msgid "Place order"
 msgstr "ይዘዙ"
 
@@ -129,3 +137,7 @@ msgstr "ክፍያ በመጠባበቅ ላይ"
 #: .\orders\urls.py:15
 msgid "create/"
 msgstr "ፍጠር/"
+
+#: .\orders\validators.py:13
+msgid "Enter a valid Ethiopian postal code (exactly 4 digits)."
+msgstr ""

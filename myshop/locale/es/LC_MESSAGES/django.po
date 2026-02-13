@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-12 15:53+0300\n"
+"POT-Creation-Date: 2026-02-13 10:00+0300\n"
 "PO-Revision-Date: 2026-02-12 16:02+0000\n"
 "Last-Translator:   <gold0963@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,29 +72,41 @@ msgstr ""
 "            "
 
 #: .\cart\templates\cart\detail.html:70
-#: .\payment\templates\payment\process.html:15
 #: .\payment\templates\payment\process.html:52
+msgid "Shipping"
+msgstr ""
+
+#: .\cart\templates\cart\detail.html:74
+#: .\payment\templates\payment\process.html:56
+#, fuzzy
+#| msgid "Continue shopping"
+msgid "Free shipping"
+msgstr "Seguir comprando"
+
+#: .\cart\templates\cart\detail.html:81
+#: .\payment\templates\payment\process.html:15
+#: .\payment\templates\payment\process.html:63
 msgid "Total"
 msgstr "Total"
 
-#: .\cart\templates\cart\detail.html:81
+#: .\cart\templates\cart\detail.html:92
 #: .\shop\templates\shop\product\detail.html:23
 msgid "People who bought this also bought"
 msgstr "Los clientes que compraron esto también compraron"
 
-#: .\cart\templates\cart\detail.html:94
+#: .\cart\templates\cart\detail.html:105
 msgid "Apply a coupon"
 msgstr "Aplicar un cupón"
 
-#: .\cart\templates\cart\detail.html:97
+#: .\cart\templates\cart\detail.html:108
 msgid "Apply"
 msgstr "Aplicar"
 
-#: .\cart\templates\cart\detail.html:101
+#: .\cart\templates\cart\detail.html:112
 msgid "Continue shopping"
 msgstr "Seguir comprando"
 
-#: .\cart\templates\cart\detail.html:102
+#: .\cart\templates\cart\detail.html:113
 msgid "Checkout"
 msgstr "Finalizar compra"
 
@@ -102,15 +114,15 @@ msgstr "Finalizar compra"
 msgid "Coupon"
 msgstr "Cupón"
 
-#: .\myshop\settings.py:117
+#: .\myshop\settings.py:130
 msgid "English"
 msgstr "Inglés"
 
-#: .\myshop\settings.py:118
+#: .\myshop\settings.py:131
 msgid "Spanish"
 msgstr "Español"
 
-#: .\myshop\settings.py:119
+#: .\myshop\settings.py:132
 msgid "Amharic"
 msgstr "Amárico"
 
@@ -127,7 +139,6 @@ msgid "payment/"
 msgstr "pago/"
 
 #: .\myshop\urls.py:32
-#| msgid "Coupon"
 msgid "coupons/"
 msgstr "Cupon/"
 
@@ -174,7 +185,7 @@ msgstr ""
 "              \"%(code)s\" (%(discount)s%% de descuento)\n"
 "            "
 
-#: .\payment\templates\payment\process.html:61
+#: .\payment\templates\payment\process.html:72
 msgid "Pay now"
 msgstr "Pagar ahora"
 
@@ -187,7 +198,6 @@ msgid "completed/"
 msgstr "completado/"
 
 #: .\payment\urls.py:25
-#| msgid "Payment canceled"
 msgid "canceled/"
 msgstr "cancelado/"
 
@@ -195,11 +205,15 @@ msgstr "cancelado/"
 msgid "My shop"
 msgstr "Mi tienda"
 
-#: .\shop\templates\shop\base.html:20
+#: .\shop\templates\shop\base.html:19
+msgid "LANGUAGE"
+msgstr ""
+
+#: .\shop\templates\shop\base.html:35
 msgid "Your cart"
 msgstr "Su carrito"
 
-#: .\shop\templates\shop\base.html:22
+#: .\shop\templates\shop\base.html:37
 #, python-format
 msgid ""
 "\n"
@@ -216,7 +230,7 @@ msgstr[1] ""
 "                    %(items)s productos, $%(total)s\n"
 "                "
 
-#: .\shop\templates\shop\base.html:28
+#: .\shop\templates\shop\base.html:43
 msgid "Your cart is empty."
 msgstr "Su carrito está vacío."
 

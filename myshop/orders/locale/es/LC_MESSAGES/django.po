@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-12 15:53+0300\n"
+"POT-Creation-Date: 2026-02-13 10:00+0300\n"
 "PO-Revision-Date: 2026-02-12 16:06+0000\n"
 "Last-Translator:   <gold0963@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,12 +63,20 @@ msgstr ""
 "                        \"%(code)s\" (%(discount)s%% de descuento )\n"
 "                    "
 
-#: .\orders\templates\orders\order\create.html:26
+#: .\orders\templates\orders\order\create.html:27
+msgid "Shipping"
+msgstr "Envío"
+
+#: .\orders\templates\orders\order\create.html:29
+msgid "Free shipping"
+msgstr "Envío gratis"
+
+#: .\orders\templates\orders\order\create.html:34
 #: .\orders\templates\orders\order\pdf.html:58
 msgid "Total"
 msgstr "Total"
 
-#: .\orders\templates\orders\order\create.html:30
+#: .\orders\templates\orders\order\create.html:38
 msgid "Place order"
 msgstr "Realizar pedido"
 
@@ -130,3 +138,7 @@ msgstr "Pendiente de pago"
 #: .\orders\urls.py:15
 msgid "create/"
 msgstr "crear/"
+
+#: .\orders\validators.py:13
+msgid "Enter a valid Ethiopian postal code (exactly 4 digits)."
+msgstr ""

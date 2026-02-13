@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for item in cart %}
+      {% for item in cart_items %}
         {% with product=item.product %}
           <tr>
             <td>
@@ -39,12 +39,12 @@
             </td>
             <td>
               <form action="{% url "cart:cart_remove" product.id %}" method="post">
-                <input type="submit" value="{% translate "Remove" %}">
+                <input type="submit" class="danger-action" value="{% translate "Remove" %}">
                 {% csrf_token %}
               </form>
             </td>
-            <td class="num">${{ item.price }}</td>
-            <td class="num">${{ item.total_price }}</td>
+            <td class="num">$ {{ item.price }}</td>
+            <td class="num">$ {{ item.total_price }}</td>
           </tr>
         {% endwith %}
       {% endfor %}
@@ -52,7 +52,7 @@
         <tr class="subtotal">
           <td>{% translate "Subtotal" %}</td>
           <td colspan="4"></td>
-          <td class="num">${{ cart.get_total_price|floatformat:2 }}</td>
+          <td class="num">$ {{ cart.get_total_price|floatformat:2 }}</td>
         </tr>
         <tr>
           <td>
@@ -66,11 +66,22 @@
           </td>
         </tr>
       {% endif %}
+      <tr>
+        <td>{% translate "Shipping" %}</td>
+        <td colspan="4"></td>
+        <td class="num">
+          {% if cart.get_shipping_cost == 0 %}
+            {% translate "Free shipping" %}
+          {% else %}
+            $ {{ cart.get_shipping_cost|floatformat:2 }}
+          {% endif %}
+        </td>
+      </tr>
       <tr class="total">
         <td>{% translate "Total" %}</td>
         <td colspan="4"></td>
         <td class="num">
-          ${{ cart.get_total_price_after_discount|floatformat:2 }}
+          $ {{ cart.get_total_price_with_shipping|floatformat:2 }}
         </td>
       </tr>
     </tbody>
@@ -99,6 +110,8 @@
   </form>
   <p class="text-right">
     <a href="{% url "shop:product_list" %}" class="button light">{% translate "Continue shopping" %}</a>
-    <a href="{% url "orders:order_create" %}" class="button">{% translate "Checkout" %}</a>
+    {% if cart_items %}
+      <a href="{% url "orders:order_create" %}" class="button cta-order">{% translate "Checkout" %}</a>
+    {% endif %}
   </p>
 {% endblock %}

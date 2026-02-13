@@ -23,9 +23,9 @@
            {% static "static/image/no_image.png" %}{% endif %}">
           </td>
           <td>{{ item.product.name }}</td>
-          <td class="num">${{ item.price }}</td>
+          <td class="num">$ {{ item.price }}</td>
           <td class="num">{{ item.quantity }}</td>
-          <td class="num">${{ item.get_cost }}</td>
+          <td class="num">$ {{ item.get_cost }}</td>
         </tr>
       {% endfor %}
       {% if order.coupon %}
@@ -48,6 +48,17 @@
           </td>
         </tr>
       {% endif %}
+      <tr>
+        <td>{% translate "Shipping" %}</td>
+        <td colspan="3"></td>
+        <td class="num">
+          {% if order.shipping_cost == 0 %}
+            {% translate "Free shipping" %}
+          {% else %}
+            ${{ order.shipping_cost|floatformat:2 }}
+          {% endif %}
+        </td>
+      </tr>
       <tr class="total">
         <td>{% translate "Total" %}</td>
         <td colspan="3"></td>
@@ -58,7 +69,7 @@
     </tbody>
   </table>
   <form action="{% url "payment:process" %}" method="post">
-    <input type="submit" value="{% translate "Pay now" %}">
+    <input type="submit" class="cta-order" value="{% translate "Pay now" %}">
     {% csrf_token %}
   </form>
 {% endblock %}

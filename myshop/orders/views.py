@@ -30,6 +30,11 @@ def order_create(request):
     Saves order details, creates line items, and clears the cart.
     """
     cart = Cart(request)
+    # Materialize cart once so stale/deleted products are dropped consistently.
+    cart_items = list(cart)
+    if not cart_items:
+        return redirect('cart:cart_detail')
+
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
@@ -42,14 +47,17 @@ def order_create(request):
             order.save()
             
             # 2. Create OrderItem instances for each product in the cart
-            for item in cart:
+            for item in cart_items:
                 OrderItem.objects.create(
                     order=order,
                     product=item['product'],
                     price=item['price'],
                     quantity=item['quantity']
                 )
-                
+            # Calculate and freeze shipping    
+            order.total_weight = order.get_total_weight()
+            order.shipping_cost = order.calculate_shipping()
+            order.save()
             # 3. Clear the session cart
             cart.clear()
 

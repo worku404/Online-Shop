@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-12 15:53+0300\n"
+"POT-Creation-Date: 2026-02-13 10:00+0300\n"
 "PO-Revision-Date: 2026-02-12 16:04+0000\n"
 "Last-Translator:   <gold0963@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,29 +72,41 @@ msgstr ""
 "            "
 
 #: .\cart\templates\cart\detail.html:70
-#: .\payment\templates\payment\process.html:15
 #: .\payment\templates\payment\process.html:52
+msgid "Shipping"
+msgstr ""
+
+#: .\cart\templates\cart\detail.html:74
+#: .\payment\templates\payment\process.html:56
+#, fuzzy
+#| msgid "Continue shopping"
+msgid "Free shipping"
+msgstr "ግብይት ይቀጥሉ"
+
+#: .\cart\templates\cart\detail.html:81
+#: .\payment\templates\payment\process.html:15
+#: .\payment\templates\payment\process.html:63
 msgid "Total"
 msgstr "ጠቅላላ"
 
-#: .\cart\templates\cart\detail.html:81
+#: .\cart\templates\cart\detail.html:92
 #: .\shop\templates\shop\product\detail.html:23
 msgid "People who bought this also bought"
 msgstr "ይህንን የገዙ ሰዎች እነዚህንም ገዝተዋል"
 
-#: .\cart\templates\cart\detail.html:94
+#: .\cart\templates\cart\detail.html:105
 msgid "Apply a coupon"
 msgstr "ኩፖን ይጠቀሙ"
 
-#: .\cart\templates\cart\detail.html:97
+#: .\cart\templates\cart\detail.html:108
 msgid "Apply"
 msgstr "ተግብር"
 
-#: .\cart\templates\cart\detail.html:101
+#: .\cart\templates\cart\detail.html:112
 msgid "Continue shopping"
 msgstr "ግብይት ይቀጥሉ"
 
-#: .\cart\templates\cart\detail.html:102
+#: .\cart\templates\cart\detail.html:113
 msgid "Checkout"
 msgstr "ሒሳብ መክፈያ"
 
@@ -102,15 +114,15 @@ msgstr "ሒሳብ መክፈያ"
 msgid "Coupon"
 msgstr "ኩፖን"
 
-#: .\myshop\settings.py:117
+#: .\myshop\settings.py:130
 msgid "English"
 msgstr "እንግሊዝኛ"
 
-#: .\myshop\settings.py:118
+#: .\myshop\settings.py:131
 msgid "Spanish"
 msgstr "ስፓኒሽ"
 
-#: .\myshop\settings.py:119
+#: .\myshop\settings.py:132
 msgid "Amharic"
 msgstr "አማርኛ"
 
@@ -127,7 +139,6 @@ msgid "payment/"
 msgstr "ክፍያ/"
 
 #: .\myshop\urls.py:32
-#| msgid "Coupon"
 msgid "coupons/"
 msgstr "ኩፖን/"
 
@@ -174,7 +185,7 @@ msgstr ""
 "              \"%(code)s\" (%(discount)s%% ቅናሽ)\n"
 "            "
 
-#: .\payment\templates\payment\process.html:61
+#: .\payment\templates\payment\process.html:72
 msgid "Pay now"
 msgstr "አሁን ይክፈሉ"
 
@@ -187,7 +198,6 @@ msgid "completed/"
 msgstr "ተጠናቀቀ/"
 
 #: .\payment\urls.py:25
-#| msgid "Payment canceled"
 msgid "canceled/"
 msgstr "ተሰርዟል/"
 
@@ -195,11 +205,15 @@ msgstr "ተሰርዟል/"
 msgid "My shop"
 msgstr "የእኔ ሱቅ"
 
-#: .\shop\templates\shop\base.html:20
+#: .\shop\templates\shop\base.html:19
+msgid "LANGUAGE"
+msgstr ""
+
+#: .\shop\templates\shop\base.html:35
 msgid "Your cart"
 msgstr "የእርስዎ ዘንቢል"
 
-#: .\shop\templates\shop\base.html:22
+#: .\shop\templates\shop\base.html:37
 #, python-format
 msgid ""
 "\n"
@@ -216,7 +230,7 @@ msgstr[1] ""
 "                    %(items)s ዕቃዎች, $%(total)s\n"
 "                "
 
-#: .\shop\templates\shop\base.html:28
+#: .\shop\templates\shop\base.html:43
 msgid "Your cart is empty."
 msgstr "ዘንቢልዎ ባዶ ነው።"
 

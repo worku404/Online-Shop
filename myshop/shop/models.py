@@ -76,6 +76,11 @@ class Product(TranslatableModel):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
+    weight = models.PositiveIntegerField(
+        help_text="weight in grams",
+        default=0
+    )
+    
     class Meta:
         # ordering = ['name']
         indexes = [

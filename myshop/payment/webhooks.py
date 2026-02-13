@@ -64,7 +64,7 @@ def stripe_webhook(request):
             order.save()
             
             # save items bought for product recommendations
-            product_ids = order.items.values_list('product_id')
+            product_ids = order.items.values_list('product_id', flat=True)
             products = Product.objects.filter(id__in=product_ids)
             r = Recommender()
             r.product_bought(products)

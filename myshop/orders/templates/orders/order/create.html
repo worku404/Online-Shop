@@ -22,12 +22,19 @@
                 </li>
             {% endif %}
         </ul>
-
-        <p>{% translate "Total" %}: $ {{cart.getTotalPriceAfterDiscount|floatformat:2 }}</p>
+        <p>
+            {% translate "Shipping" %}:
+            {% if cart.get_shipping_cost == 0 %}
+                {% translate "Free shipping" %}
+            {% else %}
+                $ {{ cart.get_shipping_cost|floatformat:2 }}
+            {% endif %}
+        </p>
+        <p>{% translate "Total" %}: $ {{ cart.get_total_price_with_shipping|floatformat:2 }}</p>
     </div>
     <form method="post" class="order-form">
         {{ form.as_p }}
-        <p><input type='submit' value='{% translate "Place order" %}'></p>
+        <p><input type='submit' class="cta-order" value='{% translate "Place order" %}'></p>
         {% csrf_token %}
     </form>
 {% endblock %}
