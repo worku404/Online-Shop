@@ -1,122 +1,141 @@
-# My Shop (Django E-commerce)
+﻿# My Shop | Django E-commerce Platform
 
-My Shop is a multilingual, full-stack e-commerce web application built with Django.  
-It includes a complete customer purchase flow: catalog browsing, cart management, coupon discounts, weighted shipping, Stripe checkout, webhook-based payment confirmation, invoice generation, and Redis-powered product recommendations.
+My Shop is a full-stack e-commerce web application built with Django that demonstrates production-style commerce workflows: localized storefronts, cart and coupon logic, weighted shipping, Stripe checkout, webhook-based payment verification, invoice generation, and asynchronous processing with Celery.
 
-## Highlights
-- End-to-end checkout and payment workflow
-- Stripe Checkout integration + secure webhook verification
-- Dynamic shipping cost based on product weight
-- Coupon system with time-window validation
-- Session-based cart with quantity updates and stale-item cleanup
-- Product recommendations using Redis co-purchase scoring
-- Multilingual UI and translated URLs (`en`, `es`, `am`)
-- Async task processing with Celery (emails + PDF invoices)
-- Admin tooling for orders, CSV export, and invoice access
+## Project Highlights
+This project demonstrates practical backend and product engineering capability in one codebase:
+- End-to-end checkout and payment lifecycle
+- Real business rules (discounting, shipping tiers, validation)
+- Third-party payment integration with secure webhook handling
+- Asynchronous task execution for post-payment operations
+- Recommendation engine using Redis co-purchase scoring
+- Admin tooling for operations and reporting
+
+## Business-Focused Features
+
+### Customer Experience
+- Localized storefront and URLs (`en`, `es`, `am`)
+- Product catalog, category browsing, and product detail pages
+- Session-based cart (add/update/remove)
+- Coupon application with active-date validation
+- Shipping fee based on total order weight
+- Stripe hosted checkout flow
+
+### Operations and Backoffice
+- Admin management for products, categories, coupons, and orders
+- CSV export for order data
+- Invoice PDF generation
+- Post-payment invoice email task via Celery
+- Order payment state updates from Stripe webhooks
+
+## System Workflow
+1. Customer adds products to cart.
+2. Customer optionally applies a coupon.
+3. Checkout creates order and order items, computes shipping.
+4. Payment page creates Stripe Checkout session.
+5. Stripe webhook confirms payment and marks order as paid.
+6. Celery task generates and emails invoice PDF.
+7. Redis recommendation scores are updated from paid order items.
+
+## End-to-End Product Flow
+
+|     (Spanish UI) |  (Amharic UI) |
+| --- | --- |
+| Spanish UI | Amharic UI |
+| ![Spanish interface](docs/image/spanish-ui.png) | ![Amharic interface](docs/image/amharic-ui.png) |
+
+|     |     |
+| --- | --- |
+| Home page | Order detail page |
+| ![Home page](docs/image/home-page.png) | ![Order detail page](docs/image/admin-order-detail.png) |
+
+|     |     |
+| --- | --- |
+| Ordered items table | Checkout page |
+| ![Ordered items table](docs/image/order-pipeline.png) | ![Checkout flow](docs/image/checkout-flow.png) |
+
+|     |     |
+| --- | --- |
+| Stripe checkout | Payment completed |
+| ![Stripe checkout](docs/image/stripe-checkout.png) | ![Payment completed](docs/image/payment-completed.png) |
+
+|     |  |
+| --- | --- |
+| Admin invoice PDF view |  |
+| ![Invoice PDF](docs/image/invoice-pdf.png) |  |
 
 ## Tech Stack
-- Python 3
-- Django 6
-- SQLite (default)
-- Stripe API
+- Python 3.13
+- Django 6.0.1
+- Celery 5.6.2
 - Redis
-- Celery
+- Stripe API
 - WeasyPrint
 - django-parler
 - django-rosetta
 - django-localflavor
+- SQLite (default)
 
-## Core Features
+## Local Setup (PowerShell)
 
-### Customer Features
-- Product listing and category filtering
-- Product details with quantity selection
-- Cart add/update/remove
-- Coupon apply
-- Checkout form with Ethiopian postal code validation
-- Shipping + total calculation
-- Stripe payment page and payment status pages
-- "People who bought this also bought" recommendations
+### 1. Create environment and install dependencies
+```powershell
+cd C:\Users\hi\Downloads\webdev\Django_Projects\onlineShop
+python -m venv env\myshop
+.\env\myshop\Scripts\Activate.ps1
+pip install -r myshop\requirements.txt
+```
 
-### Business/Admin Features
-- Product/category management (with translations)
-- Coupon management
-- Order management with inline order items
-- Stripe payment ID visibility in admin
-- Order CSV export
-- PDF invoice generation and email delivery
-
-## Quick Start
-
-From repository root:
-
+### 2. Run database setup and app
 ```powershell
 cd myshop
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
 ```
 
-In separate terminals:
-
+### 3. Start supporting services
 ```powershell
-# Redis
+# Terminal 2: Redis
 redis-server
 ```
 
 ```powershell
-# Celery worker
+# Terminal 3: Celery worker (Windows-safe command)
 cd myshop
-celery -A myshop worker -l info
+..\env\myshop\Scripts\python.exe -m celery -A myshop worker -l info -P solo
 ```
 
 ```powershell
-# Stripe webhook forwarding
+# Terminal 4: Stripe webhook forwarding
 stripe listen --forward-to http://127.0.0.1:8000/payment/webhook/
 ```
 
-## Environment Variables
+### 4. Environment variables
 Create `myshop/.env`:
-
 ```env
 STRIPE_PUBLISHABLE_KEY=pk_test_...
 STRIPE_SECRET_KEY=sk_test_...
 STRIPE_WEBHOOK_SECRET=whsec_...
 ```
 
-## Project Layout
+## Repository Structure
 ```text
 onlineShop/
   README.md
+  docs/
+    image/
   myshop/
     manage.py
     requirements.txt
-    myshop/           # settings, urls, celery
-    shop/             # catalog, recommender
-    cart/             # session cart
-    coupons/          # coupon rules
-    orders/           # checkout, models, PDF/admin
-    payment/          # stripe process/webhooks/tasks
-    locale/           # en/es/am translations
+    myshop/           # settings, urls, celery config
+    shop/             # catalog + recommendations
+    cart/             # cart logic
+    coupons/          # discount rules
+    orders/           # order creation + invoice support
+    payment/          # stripe process + webhook handlers
+    locale/           # multilingual content
 ```
 
-## Architecture Snapshot
-1. User adds products to session cart.
-2. User applies coupon (optional).
-3. Checkout creates order + order items, computes shipping.
-4. Payment page creates Stripe Checkout session from stored order items.
-5. Stripe webhook marks order as paid.
-6. Celery task sends invoice email with attached PDF.
-7. Redis recommendation scores are updated from paid order items.
-
-## Documentation
-- Full technical documentation: [`myshop/README.md`](myshop/README.md)
-
-## Current Status
-This project is complete and functional for local development and portfolio demonstration.  
-Before production deployment, harden security/configuration (`DEBUG`, `ALLOWED_HOSTS`, secret management, database, static/media strategy, monitoring).
-
-
+## Professional Context
+This repository is maintained as a professional GitHub showcase of my work. It demonstrates hands-on ability to build and connect systems common in production commerce products: transactional flows, payment integrations, asynchronous processing, internationalization, and operational admin tooling.
